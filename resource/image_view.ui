@@ -17,7 +17,16 @@
    <string>Sonar Image View</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -44,68 +53,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="zoom_1_push_button">
-          <property name="toolTip">
-           <string>Original zoom</string>
-          </property>
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="icon">
-           <iconset theme="zoom-original">
-            <normaloff>.</normaloff>.</iconset>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="num_gridlines_spin_box">
-          <property name="toolTip">
-           <string># of gridlines to overlay</string>
-          </property>
-          <property name="minimum">
-           <double>0</double>
-          </property>
-          <property name="maximum">
-           <double>20</double>
-          </property>
-          <property name="value">
-           <double>0</double>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="dynamic_range_check_box">
-          <property name="toolTip">
-           <string>Dynamic depth range</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDoubleSpinBox" name="max_range_double_spin_box">
-          <property name="toolTip">
-           <string>Max depth</string>
-          </property>
-          <property name="suffix">
-           <string>m</string>
-          </property>
-          <property name="minimum">
-           <double>0.010000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="value">
-           <double>10.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="save_as_image_push_button">
           <property name="toolTip">
            <string>Save as image</string>
@@ -119,6 +66,16 @@
             <width>16</width>
             <height>16</height>
            </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="osd_check_box">
+          <property name="toolTip">
+           <string>Dynamic depth range</string>
+          </property>
+          <property name="text">
+           <string>OSD</string>
           </property>
          </widget>
         </item>
@@ -137,93 +94,11 @@
         </item>
        </layout>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QCheckBox" name="publish_click_location_check_box">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="publish_click_location_topic_line_edit">
-          <property name="toolTip">
-           <string>Click location topic (leave empty for auto-naming)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="smooth_image_check_box">
-          <property name="toolTip">
-           <string>Dynamic depth range</string>
-          </property>
-          <property name="text">
-           <string>Smooth scaling</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="rotate_left_push_button">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="object-rotate-left">
-            <normaloff/>
-           </iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="rotate_label">
-          <property name="text">
-           <string>0°</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="rotate_right_push_button">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="object-rotate-right">
-            <normaloff/>
-           </iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="color_scheme_combo_box">
-          <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
      </layout>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="image_layout" stretch="1,0">
+    <layout class="QHBoxLayout" name="image_layout" stretch="1">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -240,8 +115,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>767</width>
-          <height>650</height>
+          <width>423</width>
+          <height>247</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -251,34 +126,43 @@
          </sizepolicy>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="rqt_image_view::RatioLayoutedFrame" name="image_frame">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>80</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::ActionsContextMenu</enum>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="lineWidth">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <property name="margin">
-           <number>1</number>
-          </property>
+         <property name="leftMargin">
+          <number>1</number>
+         </property>
+         <property name="topMargin">
+          <number>1</number>
+         </property>
+         <property name="rightMargin">
+          <number>1</number>
+         </property>
+         <property name="bottomMargin">
+          <number>1</number>
+         </property>
+         <item>
+          <widget class="rqt_image_view::RatioLayoutedFrame" name="image_frame">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>80</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="contextMenuPolicy">
+            <enum>Qt::ActionsContextMenu</enum>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </widget>

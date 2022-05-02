@@ -79,7 +79,7 @@ public:
 
 protected slots:
 
-  virtual void setColorSchemeList();
+  //  virtual void setColorSchemeList();
 
   virtual void updateTopicList();
 
@@ -92,13 +92,9 @@ protected slots:
 
   virtual void onTopicChanged(int index);
 
-  virtual void onZoom1(bool checked);
-
-  virtual void onDynamicRange(bool checked);
+  // virtual void onOsd(bool checked);
 
   virtual void saveImage();
-
-  virtual void updateNumGridlines();
 
   virtual void onMousePublish(bool checked);
 
@@ -108,17 +104,8 @@ protected slots:
 
   virtual void onHideToolbarChanged(bool hide);
 
-  virtual void onRotateLeft();
-  virtual void onRotateRight();
-
 protected:
   virtual void callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg);
-
-  virtual void invertPixels(int x, int y);
-
-  QList<int> getGridIndices(int size) const;
-
-  virtual void overlayGrid();
 
   Ui::ImageViewWidget ui_;
 
@@ -129,27 +116,12 @@ protected:
   cv::Mat conversion_mat_;
 
 private:
-  enum RotateState {
-    ROTATE_0 = 0,
-    ROTATE_90 = 1,
-    ROTATE_180 = 2,
-    ROTATE_270 = 3,
-
-    ROTATE_STATE_COUNT
-  };
-
-  void syncRotateLabel();
-
   QString arg_topic_name;
   ros::Publisher pub_mouse_left_;
 
   bool pub_topic_custom_;
 
   QAction *hide_toolbar_action_;
-
-  int num_gridlines_;
-
-  RotateState rotate_state_;
 
   sonar_image_proc::SonarDrawer sonar_drawer_;
 };
