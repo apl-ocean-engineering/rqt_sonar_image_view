@@ -1,7 +1,7 @@
-<library path="lib/librqt_image_view">
-  <class name="rqt_image_view/ImageView" type="rqt_image_view::ImageView" base_class_type="rqt_gui_cpp::Plugin">
+<library path="lib/librqt_sonar_image_view">
+  <class name="rqt_sonar_image_view/ImageView" type="rqt_sonar_image_view::ImageView" base_class_type="rqt_gui_cpp::Plugin">
     <description>
-      A GUI plugin to view a sensor_msgs/Image topic.
+      A GUI plugin to view a acoustic_msgs/SonarImage topic.
     </description>
     <qtgui>
       <group>
@@ -9,9 +9,9 @@
         <icon type="theme">folder</icon>
         <statustip>Plugins related to visualization.</statustip>
       </group>
-      <label>Image View</label>
+      <label>Sonar Image View</label>
       <icon type="theme">image-x-generic</icon>
-      <statustip>A GUI plugin for viewing sensor_msgs/Image topics.</statustip>
+      <statustip>A GUI plugin for viewing acoustic_msgs/SonarImage topics.</statustip>
     </qtgui>
   </class>
 </library>

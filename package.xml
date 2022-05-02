@@ -1,14 +1,14 @@
 <package>
-  <name>rqt_image_view</name>
-  <version>0.4.16</version>
-  <description>rqt_image_view provides a GUI plugin for displaying images using image_transport.</description>
-  <maintainer email="mabel@openrobotics.org">Mabel Zhang</maintainer>
+  <name>rqt_sonar_image_view</name>
+  <version>0.0.1</version>
+  <description>rqt_sonar_image_view provides a GUI plugin for displaying images using sonar_image_proc.</description>
+  <maintainer email="amarburg@uw.edu">Aaron Marburg</maintainer>
+  <author email="amarburg@uw.edu">Aaron Marburg</author>
 
   <license>BSD</license>
 
-  <url type="website">http://wiki.ros.org/rqt_image_view</url>
-  <url type="repository">https://github.com/ros-visualization/rqt_image_view</url>
-  <url type="bugtracker">https://github.com/ros-visualization/rqt_image_view/issues</url>
+  <url type="repository">https://github.com/apl-ocean-engineering/rqt_sonar_image_view</url>
+  <url type="bugtracker">https://github.com/apl-ocean-engineering/rqt_sonar_image_view</url>
 
   <author email="dthomas@osrfoundation.org">Dirk Thomas</author>
 
@@ -20,13 +20,15 @@
   <build_depend>qtbase5-dev</build_depend>
   <build_depend>rqt_gui</build_depend>
   <build_depend>rqt_gui_cpp</build_depend>
-  <build_depend>sensor_msgs</build_depend>
+  <build_depend>sonar_image_proc</build_depend>
+  <build_depend>acoustic_msgs</build_depend>
+
   <run_depend>cv_bridge</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>image_transport</run_depend>
   <run_depend>rqt_gui</run_depend>
   <run_depend>rqt_gui_cpp</run_depend>
-  <run_depend>sensor_msgs</run_depend>
+  <run_depend>acoustic_msgs</run_depend>
 
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>

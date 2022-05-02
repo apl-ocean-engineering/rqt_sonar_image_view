@@ -30,50 +30,52 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef rqt_image_view__ImageView_H
-#define rqt_image_view__ImageView_H
+#ifndef rqt_sonar_image_view__ImageView_H
+#define rqt_sonar_image_view__ImageView_H
 
 #include <rqt_gui_cpp/plugin.h>
 
 #include <ui_image_view.h>
 
-#include <image_transport/image_transport.h>
-#include <ros/package.h>
-#include <ros/macros.h>
-#include <sensor_msgs/Image.h>
 #include <geometry_msgs/Point.h>
+#include <image_transport/image_transport.h>
+#include <ros/macros.h>
+#include <ros/package.h>
+#include <sensor_msgs/Image.h>
 
 #include <opencv2/core/core.hpp>
 
 #include <QAction>
 #include <QImage>
 #include <QList>
-#include <QString>
 #include <QSet>
 #include <QSize>
+#include <QString>
 #include <QWidget>
 
 #include <vector>
 
-namespace rqt_image_view {
+#include <acoustic_msgs/SonarImage.h>
+#include <sonar_image_proc/SonarDrawer.h>
 
-class ImageView
-  : public rqt_gui_cpp::Plugin
-{
+namespace rqt_sonar_image_view {
+
+class ImageView : public rqt_gui_cpp::Plugin {
 
   Q_OBJECT
 
 public:
-
   ImageView();
 
-  virtual void initPlugin(qt_gui_cpp::PluginContext& context);
+  virtual void initPlugin(qt_gui_cpp::PluginContext &context);
 
   virtual void shutdownPlugin();
 
-  virtual void saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings) const;
+  virtual void saveSettings(qt_gui_cpp::Settings &plugin_settings,
+                            qt_gui_cpp::Settings &instance_settings) const;
 
-  virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
+  virtual void restoreSettings(const qt_gui_cpp::Settings &plugin_settings,
+                               const qt_gui_cpp::Settings &instance_settings);
 
 protected slots:
 
@@ -82,13 +84,9 @@ protected slots:
   virtual void updateTopicList();
 
 protected:
+  virtual QSet<QString> getTopics(const QSet<QString> &message_types);
 
-  // deprecated function for backward compatibility only, use getTopics() instead
-  ROS_DEPRECATED virtual QList<QString> getTopicList(const QSet<QString>& message_types, const QList<QString>& transports);
-
-  virtual QSet<QString> getTopics(const QSet<QString>& message_types, const QSet<QString>& message_sub_types, const QList<QString>& transports);
-
-  virtual void selectTopic(const QString& topic);
+  virtual void selectTopic(const QString &topic);
 
 protected slots:
 
@@ -114,8 +112,7 @@ protected slots:
   virtual void onRotateRight();
 
 protected:
-
-  virtual void callbackImage(const sensor_msgs::Image::ConstPtr& msg);
+  virtual void callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg);
 
   virtual void invertPixels(int x, int y);
 
@@ -125,14 +122,13 @@ protected:
 
   Ui::ImageViewWidget ui_;
 
-  QWidget* widget_;
+  QWidget *widget_;
 
-  image_transport::Subscriber subscriber_;
+  ros::Subscriber subscriber_;
 
   cv::Mat conversion_mat_;
 
 private:
-
   enum RotateState {
     ROTATE_0 = 0,
     ROTATE_90 = 1,
@@ -149,13 +145,15 @@ private:
 
   bool pub_topic_custom_;
 
-  QAction* hide_toolbar_action_;
+  QAction *hide_toolbar_action_;
 
   int num_gridlines_;
 
   RotateState rotate_state_;
+
+  sonar_image_proc::SonarDrawer sonar_drawer_;
 };
 
-}
+} // namespace rqt_sonar_image_view
 
-#endif // rqt_image_view__ImageView_H
+#endif // rqt_sonar_image_view__ImageView_H
