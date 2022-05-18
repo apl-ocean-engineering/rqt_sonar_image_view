@@ -48,10 +48,12 @@
 #include <QPainter>
 
 #include <sonar_image_proc/ColorMaps.h>
+#include <sonar_image_proc/log_sonar_image_msg_interface.h>
 #include <sonar_image_proc/sonar_image_msg_interface.h>
 
 namespace rqt_sonar_image_view {
 
+using sonar_image_proc::LogScaleSonarImageMsgInterface;
 using sonar_image_proc::SonarImageMsgInterface;
 
 ImageView::ImageView() : rqt_gui_cpp::Plugin(), widget_(0) {
@@ -67,6 +69,9 @@ void ImageView::initPlugin(qt_gui_cpp::PluginContext &context) {
                             QString::number(context.serialNumber()) + ")");
   }
   context.addWidget(widget_);
+
+  ui_.min_db_input->setValidator(new QDoubleValidator(-225, 0, 1, this));
+  ui_.max_db_input->setValidator(new QDoubleValidator(-225, 0, 1, this));
 
   // setColorSchemeList();
   // ui_.color_scheme_combo_box->setCurrentIndex(
@@ -343,13 +348,42 @@ void ImageView::onHideToolbarChanged(bool hide) {
 
 void ImageView::callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg) {
   SonarImageMsgInterface ping(msg);
-  conversion_mat_ = sonar_drawer_.drawSonar(
-      ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
-      ui_.osd_check_box->isChecked());
 
-  QImage image(conversion_mat_.data, conversion_mat_.cols, conversion_mat_.rows,
-               conversion_mat_.step[0], QImage::Format_RGB888);
-  ui_.image_frame->setImage(image);
+  if (ping.data_type() ==
+      sonar_image_proc::AbstractSonarInterface::TYPE_UINT32) {
+    const auto min_db = ui_.min_db_input->text().toDouble();
+    const auto max_db = ui_.max_db_input->text().toDouble();
+    LogScaleSonarImageMsgInterface log_ping(msg, min_db, max_db);
+
+    conversion_mat_ = sonar_drawer_.drawSonar(
+        log_ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
+        ui_.osd_check_box->isChecked());
+
+    QImage image(conversion_mat_.data, conversion_mat_.cols,
+                 conversion_mat_.rows, conversion_mat_.step[0],
+                 QImage::Format_RGB888);
+
+    ui_.min_db_label->show();
+    ui_.min_db_input->show();
+    ui_.max_db_label->show();
+    ui_.max_db_input->show();
+
+    ui_.image_frame->setImage(image);
+  } else {
+    conversion_mat_ = sonar_drawer_.drawSonar(
+        ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
+        ui_.osd_check_box->isChecked());
+
+    ui_.min_db_label->hide();
+    ui_.min_db_input->hide();
+    ui_.max_db_label->hide();
+    ui_.max_db_input->hide();
+
+    QImage image(conversion_mat_.data, conversion_mat_.cols,
+                 conversion_mat_.rows, conversion_mat_.step[0],
+                 QImage::Format_RGB888);
+    ui_.image_frame->setImage(image);
+  }
 }
 } // namespace rqt_sonar_image_view
 
