@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  ## Build in ros noetic
+- name: build-ros-noetic
+  image: amarburg/drone-ci-ros-noetic:latest
+  commands:
+    - wget -O- https://gitlab.com/amarburg/ros_drone_ci/-/raw/master/bootstrap.sh | /bin/bash
+  environment:
+    WSTOOL_RECURSIVE: true
+    ROS_PACKAGES_TO_INSTALL: cv-bridge image-transport
