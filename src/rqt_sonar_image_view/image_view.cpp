@@ -352,21 +352,26 @@ void ImageView::callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg) {
     const auto min_db = ui_.min_db_input->text().toDouble();
     const auto max_db = ui_.max_db_input->text().toDouble();
     ping.do_log_scale(min_db, max_db);
+
+    ui_.min_db_label->show();
+    ui_.min_db_input->show();
+    ui_.max_db_label->show();
+    ui_.max_db_input->show();
+  } else {
+    ui_.min_db_label->hide();
+    ui_.min_db_input->hide();
+    ui_.max_db_label->hide();
+    ui_.max_db_input->hide();
   }
 
-  conversion_mat_ = sonar_drawer_.drawSonar(
-      ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
-      ui_.osd_check_box->isChecked());
+   conversion_mat_ = sonar_drawer_.drawSonar(
+        ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
+        ui_.osd_check_box->isChecked());
 
-  ui_.min_db_label->hide();
-  ui_.min_db_input->hide();
-  ui_.max_db_label->hide();
-  ui_.max_db_input->hide();
-
-  QImage image(conversion_mat_.data, conversion_mat_.cols, conversion_mat_.rows,
-               conversion_mat_.step[0], QImage::Format_RGB888);
-  ui_.image_frame->setImage(image);
-}
+    QImage image(conversion_mat_.data, conversion_mat_.cols,
+                 conversion_mat_.rows, conversion_mat_.step[0],
+                 QImage::Format_RGB888);
+    ui_.image_frame->setImage(image);
 } // namespace rqt_sonar_image_view
 
 PLUGINLIB_EXPORT_CLASS(rqt_sonar_image_view::ImageView, rqt_gui_cpp::Plugin)
