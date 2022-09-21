@@ -372,6 +372,7 @@ void ImageView::callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg) {
                  conversion_mat_.rows, conversion_mat_.step[0],
                  QImage::Format_RGB888);
     ui_.image_frame->setImage(image);
+}
 } // namespace rqt_sonar_image_view
 
 PLUGINLIB_EXPORT_CLASS(rqt_sonar_image_view::ImageView, rqt_gui_cpp::Plugin)
