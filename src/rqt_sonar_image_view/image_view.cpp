@@ -204,7 +204,7 @@ void ImageView::restoreSettings(const qt_gui_cpp::Settings &plugin_settings,
 
 void ImageView::updateTopicList() {
   QSet<QString> message_types;
-  message_types.insert("acoustic_msgs/SonarImage");
+  message_types.insert("acoustic_msgs/ProjectedSonarImage");
 
   QString selected = ui_.topics_combo_box->currentText();
 
@@ -344,7 +344,7 @@ void ImageView::onHideToolbarChanged(bool hide) {
   ui_.toolbar_widget->setVisible(!hide);
 }
 
-void ImageView::callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg) {
+void ImageView::callbackImage(const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg) {
   SonarImageMsgInterface ping(msg);
 
   if (ping.data_type() ==

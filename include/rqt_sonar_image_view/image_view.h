@@ -59,7 +59,7 @@
 
 #include <vector>
 
-#include <acoustic_msgs/SonarImage.h>
+#include <acoustic_msgs/ProjectedSonarImage.h>
 #include <sonar_image_proc/SonarDrawer.h>
 
 namespace rqt_sonar_image_view {
@@ -109,7 +109,7 @@ protected slots:
   virtual void onHideToolbarChanged(bool hide);
 
 protected:
-  virtual void callbackImage(const acoustic_msgs::SonarImage::ConstPtr &msg);
+  virtual void callbackImage(const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg);
 
   Ui::ImageViewWidget ui_;
 
