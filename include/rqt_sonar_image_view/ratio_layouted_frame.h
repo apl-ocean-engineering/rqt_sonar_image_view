@@ -45,17 +45,13 @@
 namespace rqt_image_view {
 
 /**
- * RatioLayoutedFrame is a layout containing a single frame with a fixed aspect ratio.
- * The default aspect ratio is 4:3.
+ * RatioLayoutedFrame is a layout containing a single frame with a fixed aspect
+ * ratio. The default aspect ratio is 4:3.
  */
-class RatioLayoutedFrame
-  : public QFrame
-{
-
+class RatioLayoutedFrame : public QFrame {
   Q_OBJECT
 
-public:
-
+ public:
   RatioLayoutedFrame(QWidget* parent, Qt::WindowFlags flags = 0);
 
   virtual ~RatioLayoutedFrame();
@@ -78,27 +74,25 @@ public:
 
   void setInnerFrameFixedSize(const QSize& size);
 
-signals:
+ signals:
 
   void delayed_update();
 
   void mouseLeft(int x, int y);
 
-protected slots:
+ protected slots:
 
   void onSmoothImageChanged(bool checked);
 
-protected:
-
+ protected:
   void setAspectRatio(unsigned short width, unsigned short height);
 
   void paintEvent(QPaintEvent* event);
 
-private:
-
+ private:
   static int greatestCommonDivisor(int a, int b);
 
-  void mousePressEvent(QMouseEvent * mouseEvent);
+  void mousePressEvent(QMouseEvent* mouseEvent);
 
   QHBoxLayout* outer_layout_;
 
@@ -110,6 +104,6 @@ private:
   bool smoothImage_;
 };
 
-}
+}  // namespace rqt_image_view
 
-#endif // rqt_image_view__RatioLayoutedFrame_H
+#endif  // rqt_image_view__RatioLayoutedFrame_H
