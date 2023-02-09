@@ -37,17 +37,15 @@
 #ifndef rqt_sonar_image_view__ImageView_H
 #define rqt_sonar_image_view__ImageView_H
 
-#include <rqt_gui_cpp/plugin.h>
-
-#include <ui_image_view.h>
-
+#include <acoustic_msgs/ProjectedSonarImage.h>
 #include <geometry_msgs/Point.h>
 #include <image_transport/image_transport.h>
 #include <ros/macros.h>
 #include <ros/package.h>
+#include <rqt_gui_cpp/plugin.h>
 #include <sensor_msgs/Image.h>
-
-#include <opencv2/core/core.hpp>
+#include <sonar_image_proc/SonarDrawer.h>
+#include <ui_image_view.h>
 
 #include <QAction>
 #include <QImage>
@@ -56,19 +54,15 @@
 #include <QSize>
 #include <QString>
 #include <QWidget>
-
+#include <opencv2/core/core.hpp>
 #include <vector>
-
-#include <acoustic_msgs/ProjectedSonarImage.h>
-#include <sonar_image_proc/SonarDrawer.h>
 
 namespace rqt_sonar_image_view {
 
 class ImageView : public rqt_gui_cpp::Plugin {
-
   Q_OBJECT
 
-public:
+ public:
   ImageView();
 
   virtual void initPlugin(qt_gui_cpp::PluginContext &context);
@@ -81,18 +75,18 @@ public:
   virtual void restoreSettings(const qt_gui_cpp::Settings &plugin_settings,
                                const qt_gui_cpp::Settings &instance_settings);
 
-protected slots:
+ protected slots:
 
   //  virtual void setColorSchemeList();
 
   virtual void updateTopicList();
 
-protected:
+ protected:
   virtual QSet<QString> getTopics(const QSet<QString> &message_types);
 
   virtual void selectTopic(const QString &topic);
 
-protected slots:
+ protected slots:
 
   virtual void onTopicChanged(int index);
 
@@ -108,8 +102,9 @@ protected slots:
 
   virtual void onHideToolbarChanged(bool hide);
 
-protected:
-  virtual void callbackImage(const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg);
+ protected:
+  virtual void callbackImage(
+      const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg);
 
   Ui::ImageViewWidget ui_;
 
@@ -119,7 +114,7 @@ protected:
 
   cv::Mat conversion_mat_;
 
-private:
+ private:
   QString arg_topic_name;
   ros::Publisher pub_mouse_left_;
 
@@ -130,6 +125,6 @@ private:
   sonar_image_proc::SonarDrawer sonar_drawer_;
 };
 
-} // namespace rqt_sonar_image_view
+}  // namespace rqt_sonar_image_view
 
-#endif // rqt_sonar_image_view__ImageView_H
+#endif  // rqt_sonar_image_view__ImageView_H

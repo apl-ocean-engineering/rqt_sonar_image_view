@@ -34,21 +34,18 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <rqt_sonar_image_view/image_view.h>
-
+#include <cv_bridge/cv_bridge.h>
 #include <pluginlib/class_list_macros.h>
 #include <ros/master.h>
+#include <rqt_sonar_image_view/image_view.h>
 #include <sensor_msgs/image_encodings.h>
-
-#include <cv_bridge/cv_bridge.h>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <sonar_image_proc/ColorMaps.h>
+#include <sonar_image_proc/sonar_image_msg_interface.h>
 
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPainter>
-
-#include <sonar_image_proc/ColorMaps.h>
-#include <sonar_image_proc/sonar_image_msg_interface.h>
+#include <opencv2/imgproc/imgproc.hpp>
 
 namespace rqt_sonar_image_view {
 
@@ -103,9 +100,9 @@ void ImageView::initPlugin(qt_gui_cpp::PluginContext &context) {
   ui_.image_frame->setOuterLayout(ui_.image_layout);
 
   QRegExp rx(
-      "([a-zA-Z/][a-zA-Z0-9_/]*)?"); // see
-                                     // http://www.ros.org/wiki/ROS/Concepts#Names.Valid_Names
-                                     // (but also accept an empty field)
+      "([a-zA-Z/][a-zA-Z0-9_/]*)?");  // see
+                                      // http://www.ros.org/wiki/ROS/Concepts#Names.Valid_Names
+                                      // (but also accept an empty field)
   // ui_.publish_click_location_topic_line_edit->setValidator(
   //     new QRegExpValidator(rx, this));
   // connect(ui_.publish_click_location_check_box, SIGNAL(toggled(bool)), this,
@@ -344,7 +341,8 @@ void ImageView::onHideToolbarChanged(bool hide) {
   ui_.toolbar_widget->setVisible(!hide);
 }
 
-void ImageView::callbackImage(const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg) {
+void ImageView::callbackImage(
+    const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg) {
   SonarImageMsgInterface ping(msg);
 
   if (ping.data_type() ==
@@ -364,15 +362,14 @@ void ImageView::callbackImage(const acoustic_msgs::ProjectedSonarImage::ConstPtr
     ui_.max_db_input->hide();
   }
 
-   conversion_mat_ = sonar_drawer_.drawSonar(
-        ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
-        ui_.osd_check_box->isChecked());
+  conversion_mat_ = sonar_drawer_.drawSonar(
+      ping, sonar_image_proc::InfernoColorMap(), cv::Mat(0, 0, CV_8UC3),
+      ui_.osd_check_box->isChecked());
 
-    QImage image(conversion_mat_.data, conversion_mat_.cols,
-                 conversion_mat_.rows, conversion_mat_.step[0],
-                 QImage::Format_RGB888);
-    ui_.image_frame->setImage(image);
+  QImage image(conversion_mat_.data, conversion_mat_.cols, conversion_mat_.rows,
+               conversion_mat_.step[0], QImage::Format_RGB888);
+  ui_.image_frame->setImage(image);
 }
-} // namespace rqt_sonar_image_view
+}  // namespace rqt_sonar_image_view
 
 PLUGINLIB_EXPORT_CLASS(rqt_sonar_image_view::ImageView, rqt_gui_cpp::Plugin)
