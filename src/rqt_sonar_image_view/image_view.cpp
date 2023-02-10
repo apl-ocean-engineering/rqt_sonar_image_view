@@ -45,7 +45,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPainter>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc/imgproc.hpp>    
 
 namespace rqt_sonar_image_view {
 
