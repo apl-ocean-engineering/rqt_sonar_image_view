@@ -1,3 +1,2 @@
 - git: {local-name: sonar_image_proc, uri: "https://github.com/apl-ocean-engineering/sonar_image_proc"}
-# - git: {local-name: hydrographic_msgs, uri: "https://github.com/apl-ocean-engineering/hydrographic_msgs.git", version: v0.0.1}
-- git: {local-name: hydrographic_msgs, uri: "https://github.com/apl-ocean-engineering/hydrographic_msgs.git"}
+- git: {local-name: marine_msgs, uri: "https://github.com/apl-ocean-engineering/marine_msgs", version: v2.0.0}

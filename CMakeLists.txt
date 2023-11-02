@@ -9,7 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
               rqt_gui
               rqt_gui_cpp
               image_transport
-              acoustic_msgs
+              marine_acoustic_msgs
               sonar_image_proc
               geometry_msgs
               cv_bridge)
