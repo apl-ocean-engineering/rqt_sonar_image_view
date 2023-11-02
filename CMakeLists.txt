@@ -46,7 +46,12 @@ endif()
 catkin_package(
   INCLUDE_DIRS ${rqt_sonar_image_view_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS rqt_gui rqt_gui_cpp image_transport acoustic_msgs cv_bridge geometry_msgs
+  CATKIN_DEPENDS rqt_gui \
+                rqt_gui_cpp \
+                image_transport \
+                marine_acoustic_msgs \
+                cv_bridge \
+                geometry_msgs
 )
 catkin_python_setup()
 
