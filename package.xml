@@ -19,14 +19,14 @@
   <build_depend>rqt_gui</build_depend>
   <build_depend>rqt_gui_cpp</build_depend>
   <build_depend>sonar_image_proc</build_depend>
-  <build_depend>acoustic_msgs</build_depend>
+  <build_depend>marine_acoustic_msgs</build_depend>
 
   <run_depend>cv_bridge</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>image_transport</run_depend>
   <run_depend>rqt_gui</run_depend>
   <run_depend>rqt_gui_cpp</run_depend>
-  <run_depend>acoustic_msgs</run_depend>
+  <run_depend>marine_acoustic_msgs</run_depend>
 
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>

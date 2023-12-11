@@ -37,9 +37,9 @@
 #ifndef rqt_sonar_image_view__ImageView_H
 #define rqt_sonar_image_view__ImageView_H
 
-#include <acoustic_msgs/ProjectedSonarImage.h>
 #include <geometry_msgs/Point.h>
 #include <image_transport/image_transport.h>
+#include <marine_acoustic_msgs/ProjectedSonarImage.h>
 #include <ros/macros.h>
 #include <ros/package.h>
 #include <rqt_gui_cpp/plugin.h>
@@ -104,7 +104,7 @@ class ImageView : public rqt_gui_cpp::Plugin {
 
  protected:
   virtual void callbackImage(
-      const acoustic_msgs::ProjectedSonarImage::ConstPtr &msg);
+      const marine_acoustic_msgs::ProjectedSonarImage::ConstPtr &msg);
 
   Ui::ImageViewWidget ui_;
 
